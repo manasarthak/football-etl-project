@@ -1,3 +1,9 @@
+name: ETL Workflow
+
+on:
+  schedule:
+    - cron: '0 15 * * 1'  # Runs every Monday at 3 PM UTC
+  workflow_dispatch:  # Allows manual triggering of the workflow
 jobs:
   run_etl:
     runs-on: ubuntu-latest
