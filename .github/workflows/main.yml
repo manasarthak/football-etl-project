@@ -36,7 +36,7 @@ jobs:
 
       - name: Upload ETL log file
         if: always()  # Ensure this step runs even if previous steps fail
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: etl_workflow_log  # Name of the artifact
           path: etl_workflow.log  # Path to the log file
