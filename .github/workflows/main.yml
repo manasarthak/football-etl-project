@@ -24,10 +24,13 @@ jobs:
           pip install -r requirements.txt  # Install dependencies from requirements.txt
 
       - name: List files in the working directory
-        run: ls -R  # This helps verify the file structure and identify any missing files
+        run: |
+          pwd
+          ls -R  # This helps verify the file structure and identify any missing files
 
-      - name: Set permissions for scripts
-        run: chmod +x *.py
+      - name: Verify current directory
+        run: pwd
 
       - name: Run ETL process
+        working-directory: ${{ github.workspace }}
         run: python main.py
