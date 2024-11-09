@@ -19,18 +19,24 @@ jobs:
           python-version: '3.8'  # Specify your Python version
 
       - name: Install dependencies
+        working-directory: ${{ github.workspace }}
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt  # Install dependencies from requirements.txt
 
       - name: List files in the working directory
+        working-directory: ${{ github.workspace }}
         run: |
           pwd
           ls -R  # This helps verify the file structure and identify any missing files
 
-      - name: Verify current directory
-        run: pwd
-
-      - name: Run ETL process
+      - name: Run ETL process and log output
         working-directory: ${{ github.workspace }}
-        run: python main.py
+        run: python main.py  # Run main.py which now generates etl_workflow.log
+
+      - name: Upload ETL log file
+        if: always()  # Ensure this step runs even if previous steps fail
+        uses: actions/upload-artifact@v2
+        with:
+          name: etl_workflow_log  # Name of the artifact
+          path: etl_workflow.log  # Path to the log file
