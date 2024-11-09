@@ -37,7 +37,10 @@ def to_blob(func):
     parquet_buffer = BytesIO()
     pq.write_table(table, parquet_buffer)
 
+    # Get connection string and validate it
     connection_string = os.getenv("AZURE_CONNECTION_STRING")
+    if not connection_string:
+        raise ValueError("AZURE_CONNECTION_STRING environment variable is not set")
     blob_service_client = BlobServiceClient.from_connection_string(connection_string)
 
     container_name = "footballweekly"
